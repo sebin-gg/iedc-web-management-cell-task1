@@ -24,11 +24,19 @@ function addtask()
 function deletetask(taskid)
 
 {
-    
+    const taskitem = document.getElementById(taskid);
+    if (taskitem)
+        {
+            taskitem.remove();
+        }   
 }
 
 function toggleComplete(taskitem,id)
 
 {
-
+    const taskitem = document.getElementById(taskid);
+    if (taskitem)
+    {
+        taskitem.classList.toggle('completed');
+    }
 }
