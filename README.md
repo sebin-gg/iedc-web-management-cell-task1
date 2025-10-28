@@ -3,7 +3,7 @@
 Simple React + Vite project for the IEDC Bootcamp CEC site.
 
 Live demo (Vercel)
-- Vercel URL: ___________________________  <!-- paste deployed site link here -->
+- Vercel URL: https://iedc-bootcamp-cec-task1.vercel.app 
 
 Prerequisites
 - Node.js (14+)
