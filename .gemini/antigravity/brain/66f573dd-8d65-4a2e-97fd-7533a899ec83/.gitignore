@@ -16,12 +16,13 @@ __pycache__/
 .venv/
 venv/
 
-# Environment files
+# Environment & Local Fallback Data
 .env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
+.local_data/
 
 # Logs
 *.log

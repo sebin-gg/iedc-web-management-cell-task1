@@ -4,8 +4,9 @@ import { deleteExamData, readExamData, readManifest, writeExamData, writeManifes
 export async function GET(req: Request) {
   const authHeader = req.headers.get("authorization");
   const cronSecret = process.env.CRON_SECRET || "change-me-cron";
+  const isDev = process.env.NODE_ENV === "development";
 
-  if (authHeader !== `Bearer ${cronSecret}`) {
+  if (!isDev && authHeader !== `Bearer ${cronSecret}`) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
