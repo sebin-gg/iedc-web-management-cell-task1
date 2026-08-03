@@ -1,10 +1,11 @@
-# 🚀 KTU Exam Seating Allocation Portal
+# 🎓 CEC Exam Seating Allocation Portal
+### College of Engineering Chengannur (CEC) — KTU Examination Cell
 
-> High-concurrency, zero-cost exam seating lookup system built with the **T3 Stack** (Next.js 15 App Router, tRPC v11, Tailwind CSS, TypeScript) and **Python FastAPI**. Designed to handle **1,000+ concurrent students** with **$0 monthly cost** and **zero risk of unexpected charges**.
+> High-concurrency, zero-cost exam seating lookup system built for **College of Engineering Chengannur (CEC)** with the **T3 Stack** (Next.js 15 App Router, tRPC v11, Tailwind CSS, TypeScript) and **Python FastAPI**. Designed to handle **1,000+ concurrent students** with **$0 monthly cost** and **zero risk of unexpected charges**.
 
 ---
 
-## 📸 Overview & Data Flow
+## 📸 Architecture & Data Flow
 
 ```
                                   STAFF PORTAL
@@ -34,11 +35,11 @@
 
 ## ✨ Features
 
-- **⚡ Instant Client-Side Search (<1ms):** Performs in-browser lexicographic roll range matching. Zero database hits during student rushes.
+- **⚡ Instant Client-Side Search (<1ms):** Performs in-browser lexicographic roll range matching for CEC students (`CS24C01`–`CS24C30`). Zero database hits during rush hours.
 - **🔒 Private Blob Release Gate:** Seating JSON is encrypted & private (`access: 'private'`). Access is strictly gated by server-side `publishAt` timestamps.
-- **📄 KTU PDF Parser Engine:** Python FastAPI service powered by `pdfplumber` for row reconstruction across complex multi-column exam hall layouts.
-- **🔐 Zero-Database Staff Auth:** Secure HTTP-only cookie authentication powered by master admin password.
-- **💻 Dual-Mode Architecture:** Automatic fallback to local file storage (`.local_data/`) and mock parser when running locally without cloud tokens.
+- **📄 KTU PDF Parser Engine:** Python FastAPI service powered by `pdfplumber` for row reconstruction across complex multi-column KTU seating layout tables.
+- **🔐 Zero-Database Staff Auth:** Secure HTTP-only cookie authentication powered by master admin password (`CEC2026`).
+- **💻 Dual-Mode Local Fallbacks:** Automatic fallback to local file storage (`.local_data/`) and mock parser when running locally without cloud tokens.
 - **🌓 Minimal Dark / Light Mode:** Built-in theme switcher powered by `next-themes` and Tailwind CSS.
 - **🧹 Automated Expired Cleanup:** Scheduled cron worker automatically wipes seating data 5 hours after exam release.
 
@@ -67,6 +68,7 @@ exam-seating/
 ├── ARCHITECTURE.md            # Detailed architectural & scalability breakdown
 ├── apps/
 │   └── web/                   # Next.js 15 + tRPC App Router application
+│       ├── .env.example       # Default environment variables (ADMIN_PASSWORD=CEC2026)
 │       ├── src/
 │       │   ├── app/           # App Router pages & API handlers
 │       │   ├── server/api/    # tRPC routers (admin & seating)
@@ -96,7 +98,7 @@ pnpm install
 # Start local Next.js development server
 pnpm dev
 ```
-Open `http://localhost:3000` to test Student Search, or `http://localhost:3000/admin/login` for Staff Portal (Default Password: `CEC2026`).
+Open `http://localhost:3000` to test Student Search, or `http://localhost:3000/admin/login` for Staff Portal (Default Master Password: `CEC2026`).
 
 > **Note:** When running locally without cloud tokens, the app automatically uses local file system storage (`.local_data/`) and built-in fallback parser logic.
 
@@ -118,7 +120,7 @@ uvicorn main:app --reload --port 8000
 2. Root Directory: `services/parser`
 3. Build Command: `pip install -r requirements.txt`
 4. Start Command: `uvicorn main:app --host 0.0.0.0 --port $PORT`
-5. Set Environment Variable: `BACKEND_SHARED_SECRET=your-secret-key`
+5. Set Environment Variable: `BACKEND_SHARED_SECRET=change-me-secret`
 
 ### 2. Next.js Web App (Vercel Free Tier)
 1. Deploy `apps/web` on Vercel.
@@ -126,8 +128,8 @@ uvicorn main:app --reload --port 8000
 3. Set Environment Variables:
    - `ADMIN_PASSWORD` = `CEC2026`
    - `PARSER_SERVICE_URL` = `https://your-parser.onrender.com`
-   - `BACKEND_SHARED_SECRET` = `your-secret-key`
-   - `CRON_SECRET` = `your-cron-secret`
+   - `BACKEND_SHARED_SECRET` = `change-me-secret`
+   - `CRON_SECRET` = `change-me-cron-secret`
 4. **Important Safety Step:** Set Hard Spend Limit = **$0** in Vercel Spend Management.
 
 ---
@@ -146,4 +148,4 @@ python -m py_compile services/parser/main.py services/parser/pdf_parser.py
 
 ## 📜 License
 
-MIT License. Free to use for educational and institutional deployments.
+MIT License. Developed for **College of Engineering Chengannur (CEC)**. Free for institutional use.
