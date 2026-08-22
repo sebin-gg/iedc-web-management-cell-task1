@@ -38,16 +38,9 @@ tbody tr:hover{background:var(--accent)}
 <script defer src="/theme.js"></script>
 <script>
   try {
-    var t = localStorage.getItem("theme");
-    if (!t) {
-      t = matchMedia("(prefers-color-scheme:dark)").matches ? "dark" : "light";
-    }
-    if (t === "dark") {
-      document.documentElement.classList.add("dark");
-    }
-  } catch (e) {
-    /* theme detection is best-effort */
-  }
+    var t = localStorage.getItem("theme") || (matchMedia("(prefers-color-scheme:dark)").matches ? "dark" : "light");
+    document.documentElement.classList.toggle("dark", t === "dark");
+  } catch (e) { /* best-effort theme detection */ }
 </script>
 </head>
 <body>
