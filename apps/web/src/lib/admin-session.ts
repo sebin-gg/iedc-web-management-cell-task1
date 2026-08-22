@@ -1,4 +1,4 @@
-import crypto from "crypto";
+import crypto node:crypto;
 
 export const ADMIN_COOKIE_NAME = "admin_session";
 export const SESSION_MAX_AGE = 60 * 60 * 24;

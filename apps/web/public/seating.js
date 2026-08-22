@@ -3,18 +3,18 @@
  * @returns {string}
  */
 export const esc = (s) =>
-  String(s === undefined || s === null ? "" : s).replace(
+  (typeof s === "string" ? s : "").replace(
     /[&<>"']/g,
     (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c],
   );
 
 /**
  * @param {{ rooms?: { room_no: string; ranges?: { roll_from: string; roll_to: string; label?: string | null; count?: number | null }[]; rolls?: Record<string, string> }[] }} payload
- * @param {string} roll
+ * @param {string=} roll
  * @returns {{ room_no: string; label: string; roll_from?: string; roll_to?: string } | undefined}
  */
 export function findSeat(payload, roll) {
-  const q = String(roll === undefined || roll === null ? "" : roll)
+  const q = String(roll ?? "")
     .trim()
     .toUpperCase();
   if (!q) return undefined;
@@ -76,7 +76,7 @@ export function runSeatingApp({
   let timer = null;
   let stopped = false;
   let lastPayload = null;
-  let lastRooms = undefined;
+  let lastRooms;
   let lastStatus = null;
 
   const emit = (d) => {

@@ -1,4 +1,4 @@
-import crypto from "crypto";
+import crypto node:crypto;
 import { compactRooms } from "~/lib/seating-format";
 import { readManifest, writeExamData, writeManifest } from "~/lib/blob";
 import type { ExamData, ParsedRoom } from "~/lib/blob";

@@ -8,7 +8,7 @@ for (const [cmd, args] of [
   ["ruff", ["format", ...files]],
 ]) {
   const { error, status } = spawnSync(cmd, args, { stdio: "inherit" });
-  if (error && error.code === "ENOENT") {
+  if (error?.code === "ENOENT") {
     console.warn(
       "[lint-staged] ruff not found - skipping Python lint. Install: pip install ruff (or pip install -r services/parser/requirements-dev.txt)",
     );

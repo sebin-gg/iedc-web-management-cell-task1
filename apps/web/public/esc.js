@@ -4,7 +4,7 @@
  * @returns {string}
  */
 export const esc = (s) =>
-  String(s === undefined || s === null ? "" : s).replace(
+  (typeof s === "string" ? s : "").replace(
     /[&<>"']/g,
     (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c],
   );

@@ -5,9 +5,6 @@ on:
     branches: [main]
   pull_request:
 
-permissions:
-  contents: read
-
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
@@ -19,6 +16,8 @@ jobs:
   # CI_ADMINS means nobody can bypass.
   decide:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     outputs:
       should-run: ${{ steps.decide.outputs.should-run }}
     steps:
@@ -52,6 +51,8 @@ jobs:
     needs: decide
     if: github.event_name == 'pull_request' && needs.decide.outputs.should-run == 'true'
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: Harden the runner (Audit all outbound calls)
         uses: step-security/harden-runner@05e31511f85b41b11d1cf0ef85d0992719546e2c # v2.21.0
@@ -73,6 +74,8 @@ jobs:
     needs: decide
     if: needs.decide.outputs.should-run == 'true'
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: Harden the runner (Audit all outbound calls)
         uses: step-security/harden-runner@05e31511f85b41b11d1cf0ef85d0992719546e2c # v2.21.0
@@ -87,12 +90,12 @@ jobs:
           node-version-file: .nvmrc
           cache: pnpm
       - name: Install
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --frozen-lockfile --ignore-scripts
       - name: Lint (web)
         run: pnpm lint
       - name: Lint (parser, ruff)
         run: |
-          python -m pip install --quiet ruff
+          python -m pip install --quiet "ruff>=0.9"
           ruff check services/parser
           ruff format --check services/parser
       - name: Typecheck

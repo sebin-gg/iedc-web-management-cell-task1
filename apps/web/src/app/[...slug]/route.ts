@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { readFile } from "fs/promises";
-import path from "path";
+import { readFile } from "node:fs/promises";
+import path from "node:path";
 
 const NOT_FOUND_HTML =
   "<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>404</title></head><body><h1>Page Not Found</h1><p><a href='/'>Go home</a></p></body></html>";

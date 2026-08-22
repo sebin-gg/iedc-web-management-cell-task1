@@ -1,7 +1,7 @@
 import { put, get, del } from "@vercel/blob";
-import { gzipSync, gunzipSync } from "zlib";
-import fs from "fs/promises";
-import path from "path";
+import { gzipSync, gunzipSync } node:zlib;
+import fs node:fs/promises;
+import path node:path;
 
 export interface ExamManifestEntry {
   examId: string;

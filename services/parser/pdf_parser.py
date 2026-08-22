@@ -63,7 +63,7 @@ HALL_ROW_RE = re.compile(
 )
 
 SUBJECT_HEADER_RE = re.compile(
-    r"\d+\)\s*Subject\s*:\s*(?P<code>[A-Za-z0-9]+)\s*-\s*\d+\s*Nos?",
+    r"\d+\)\s*Subject\s*:\s*(?P<code>[a-z0-9]+)\s*-\s*\d+\s*Nos?",
     re.IGNORECASE,
 )
 ROLL_TOKEN_RE = re.compile(r"[A-Za-z]{2,6}\d{2,3}[A-Za-z]{0,3}\d{0,4}")

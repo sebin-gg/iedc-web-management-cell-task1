@@ -2,9 +2,15 @@
 // Reads localStorage, checks system preference, toggles .dark class.
 try {
   var t = localStorage.getItem("theme");
-  if (!t) t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-  if (t === "dark") document.documentElement.classList.add("dark");
-} catch (e) {}
+  if (!t) {
+    t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  }
+  if (t === "dark") {
+    document.documentElement.classList.add("dark");
+  }
+} catch (e) {
+  // best-effort theme detection; fall back to light
+}
 document.addEventListener("DOMContentLoaded", function () {
   var btn = document.getElementById("tbtn");
   if (btn)
