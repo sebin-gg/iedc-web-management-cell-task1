@@ -95,7 +95,7 @@ jobs:
         run: pnpm lint
       - name: Lint (parser, ruff)
         run: |
-          python -m pip install --quiet "ruff>=0.9"
+          python -m pip install --quiet ruff==0.14.4
           ruff check services/parser
           ruff format --check services/parser
       - name: Typecheck

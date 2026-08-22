@@ -65,7 +65,7 @@
 <footer>KTU Exam Cell Seating Portal &middot; Fast &amp; Free</footer>
 <script type="module">
 import{esc}from'../esc.js';
-fetch('/api/admin/manifest').then(function(r){if(r.status===401)location.replace('/admin/login')}).catch(function(){});
+fetch('/api/admin/manifest').then(function(r){if(r.status===401)location.replace('/admin/login')}).catch(function(){/* probe only */});
 var msg=document.getElementById('msg');
 var now=new Date();
 document.getElementById('date').value=now.toISOString().split('T')[0];
