@@ -3,6 +3,7 @@ import os
 from dotenv import load_dotenv
 from fastapi import FastAPI, File, Header, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from typing import Annotated
 from pydantic import BaseModel
 
 from pdf_parser import parse_seating_pdf
@@ -51,10 +52,14 @@ def health():
     return {"status": "ok"}
 
 
-@app.post("/api/parse-pdf", response_model=ParsePdfResponse)
+@app.post(
+    "/api/parse-pdf",
+    response_model=ParsePdfResponse,
+    responses={401: {"description": "Invalid or missing backend secret"}, 400: {"description": "Not a PDF upload"}, 422: {"description": "Could not parse PDF"}},
+)
 async def parse_pdf(
-    file: UploadFile = File(...),
-    x_backend_secret: str | None = Header(default=None),
+    file: Annotated[UploadFile, File(...)],
+    x_backend_secret: Annotated[str | None, Header(default=None)],
 ):
     _check_secret(x_backend_secret)
 

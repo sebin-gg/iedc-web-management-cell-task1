@@ -3,7 +3,7 @@
  * @returns {string}
  */
 export const esc = (s) =>
-  String(s || "").replace(
+  String(s === undefined || s === null ? "" : s).replace(
     /[&<>"']/g,
     (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c],
   );
@@ -14,7 +14,7 @@ export const esc = (s) =>
  * @returns {{ room_no: string; label: string; roll_from?: string; roll_to?: string } | undefined}
  */
 export function findSeat(payload, roll) {
-  const q = String(roll || "")
+  const q = String(roll === undefined || roll === null ? "" : roll)
     .trim()
     .toUpperCase();
   if (!q) return undefined;
