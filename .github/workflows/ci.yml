@@ -22,6 +22,11 @@ jobs:
     outputs:
       should-run: ${{ steps.decide.outputs.should-run }}
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@05e31511f85b41b11d1cf0ef85d0992719546e2c # v2.21.0
+        with:
+          egress-policy: audit
+
       - name: Resolve admin skip-ci bypass
         id: decide
         env:
@@ -48,6 +53,11 @@ jobs:
     if: github.event_name == 'pull_request' && needs.decide.outputs.should-run == 'true'
     runs-on: ubuntu-latest
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@05e31511f85b41b11d1cf0ef85d0992719546e2c # v2.21.0
+        with:
+          egress-policy: audit
+
       - name: Check conventional commit prefix
         env:
           TITLE: ${{ github.event.pull_request.title }}
@@ -64,6 +74,11 @@ jobs:
     if: needs.decide.outputs.should-run == 'true'
     runs-on: ubuntu-latest
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@05e31511f85b41b11d1cf0ef85d0992719546e2c # v2.21.0
+        with:
+          egress-policy: audit
+
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       # Version comes from the packageManager field in package.json (pnpm@11.21.0)
       - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
