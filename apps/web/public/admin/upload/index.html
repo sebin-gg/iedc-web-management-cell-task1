@@ -33,7 +33,9 @@
   try {
     var t = localStorage.getItem("theme") || (matchMedia("(prefers-color-scheme:dark)").matches ? "dark" : "light");
     document.documentElement.classList.toggle("dark", t === "dark");
-  } catch (e) { /* best-effort theme detection */ }
+  } catch (e) {
+    console.debug('theme detection fell back to light', e);
+  }
 </script>
 </head>
 <body>
