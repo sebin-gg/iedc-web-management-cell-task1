@@ -9,6 +9,9 @@ concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
   # Admin bypass: a commit message or PR title containing `[skip ci]` skips CI,
   # but ONLY for admins listed in the repo variable CI_ADMINS (comma-separated
